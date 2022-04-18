@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+    视频页
+{% endblock %}
+{% block head %}
+    <script src="{{ url_for("static",filename ='js/video.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% if  video %}
+        <div class="container mt-5" style="margin: auto">
+            <p align="center">
+                <video style="margin: auto" width="600" controls="controls">
+                    <source src="/static/upload/{{ video.uiid }}" + type="video/mp4">
+                </video>
+            </p>
+        </div>
+        <p align="center" class="p-2">
+            <button type="button" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom"
+                    title="用 YOLO_v5 解析视频">YOLO_v5
+            </button>
+            <button type="button" class="btn btn-success ml-2" data-toggle="tooltip" data-placement="bottom"
+                    title="用 YOLO_v4 解析视频">YOLO_v4
+            </button>
+            <button type="button" class="btn btn-warning ml-2" data-toggle="tooltip" data-placement="bottom"
+                    title="用 centernet 解析视频">centernet
+            </button>
+            <button type="button" class="btn btn-danger ml-2" data-toggle="tooltip" data-placement="bottom"
+                    title="用 ssd 解析视频">ssd
+            </button>
+
+        </p>
+    {% else %}
+        <div class="jumbotron">
+            <h1 class="display-4">YOLO 小站</h1>
+            <p class="lead">你还没有上传任何视频</p>
+            <hr class="my-4">
+            <p>上传视频就可以开始解析视频了～～～</p>
+            <a class="btn btn-dark btn-lg" href="{{ url_for("video.upload") }}" role="button">上传视频</a>
+        </div>
+
+
+
+    {% endif %}
+
+
+
+
+{% endblock %}

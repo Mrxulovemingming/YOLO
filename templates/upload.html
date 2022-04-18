@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+    视频页
+{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="card mt-5" style="width: 18rem;margin: auto">
+  <img src="/static/icons-1.8.1/icons/play-btn.svg" class="card-img-top" style="width: 80%;margin: auto" alt="...">
+  <div class="card-body">
+    <h5 class="card-title" style="text-align: center">上传篮球视频</h5>
+      <p class="card-text">上传视频后，即可用 YOLO 对视频内容进行解析。<b>「限制100M」</b></p>
+      <form action="/video/upload" method="POST" enctype="multipart/form-data" style="margin: auto">
+        <input type="file"  name="file" accept=".mp4" />
+        <input type="submit" value="上传" class="btn btn-block btn-dark mt-3"  />
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
