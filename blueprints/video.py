@@ -30,8 +30,10 @@ def upload():
             db.session.add(video_model)
             db.session.commit()
         else:
-            video_model.video_name = filename
-            video_model.video_url = uuid_name
+            # 上传新的视频后，将原来的视频删除
+            os.remove(os.path.join(config.UPLOAD_FOLDER, video_model.uiid))
+            video_model.name = filename
+            video_model.uiid = uuid_name
             db.session.commit()
         return jsonify({'code': 200, 'msg': '上传成功'})
 
