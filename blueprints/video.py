@@ -18,6 +18,8 @@ def upload():
         return render_template('upload.html')
     else:
         f = request.files['file']
+        if f.filename.split('.')[1] != 'mp4':
+            return '目前只接受mp4文件!', 400  # return the error message, with a proper 4XX code
         filename = secure_filename(f.filename)
         extension = filename.rsplit('.')[-1]
         # 生成一个uuid作为文件名
@@ -31,7 +33,9 @@ def upload():
             db.session.commit()
         else:
             # 上传新的视频后，将原来的视频删除
-            os.remove(os.path.join(config.UPLOAD_FOLDER, video_model.uiid))
+            # 判断文件是否存在,文件存在则删除
+            if os.path.exists(os.path.join(config.UPLOAD_FOLDER, video_model.uiid)):
+                os.remove(os.path.join(config.UPLOAD_FOLDER, video_model.uiid))
             video_model.name = filename
             video_model.uiid = uuid_name
             db.session.commit()
@@ -46,7 +50,7 @@ def show_video():
         return render_template('videos.html')
 
 # 解析视频
-@bp.route('/show', methods=['GET', 'POST'])
+@bp.route('/parse', methods=['GET', 'POST'])
 @login_required
 def parse_video():
     if request.method == 'GET':

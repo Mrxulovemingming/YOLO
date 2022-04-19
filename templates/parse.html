@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}
+    解析页
+{% endblock %}
+{% block head %}
+    <script src="{{ url_for("static",filename ='js/video.js') }}"></script>
+{% endblock %}
 
-</body>
-</html>
+{% block body %}
+    {% if  video.yolo_uiid %}
+        <div class="container mt-5" style="margin: auto">
+            <p align="center">
+                <video style="margin: auto" width="600" controls="controls">
+                    <source src="/static/upload/{{ video.uiid }}" + type="video/mp4">
+                </video>
+            </p>
+        </div>
+
+    {% else %}
+        <div class="jumbotron">
+            <h1 class="display-4">YOLO 小站</h1>
+            <p class="lead">你还没有解析任何视频</p>
+            <hr class="my-4">
+            <p>在视频页面选择相关的解析方式即可解析～～～</p>
+            <a class="btn btn-dark btn-lg" href="{{ url_for("video.show_video") }}" role="button">解析视频</a>
+        </div>
+
+    {% endif %}
+
+
+{% endblock %}

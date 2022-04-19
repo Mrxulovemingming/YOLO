@@ -51,10 +51,12 @@ def register():
         else:
             return render_template(url_for("user.register"))  # 返回错误信息
 
+
 @bp.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for("user.login"))
+
 
 @bp.route('/captcha', methods=['POST'])
 def send_captcha():

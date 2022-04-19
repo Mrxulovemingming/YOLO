@@ -5,15 +5,17 @@ from blueprints import user_bp
 from blueprints import video_bp
 from flask_migrate import Migrate
 from models import UserModel, VideoModel
+from flask_dropzone import Dropzone
 
 app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 mail.init_app(app)
+migrate = Migrate(app, db)
+drop_zone = Dropzone()
+drop_zone.init_app(app)
 app.register_blueprint(user_bp)
 app.register_blueprint(video_bp)
-migrate = Migrate(app, db)
-
 
 @app.before_request
 def before_request():
